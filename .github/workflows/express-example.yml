@@ -1,0 +1,36 @@
+name: Express example
+
+on:
+  pull_request:
+    paths:
+      - 'tenuo-ts/examples/express/**'
+      - '.github/workflows/express-example.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tenuo-ts/examples/express/**'
+      - '.github/workflows/express-example.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: tenuo-ts/examples/express
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Install pinned dependencies
+        run: npm install --no-audit --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Authorization tests
+        run: npm test
+      - name: Demo
+        run: npm run demo
