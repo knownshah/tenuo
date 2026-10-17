@@ -7,7 +7,8 @@
   "scripts": {
     "demo": "tsx demo.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:packed": "node scripts/verify-packed.mjs"
   },
   "dependencies": {
     "@tenuo/core": "0.3.2-beta.0",

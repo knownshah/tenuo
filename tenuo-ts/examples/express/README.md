@@ -34,3 +34,17 @@ is for local development only. A production service needs authenticated identity
 trusted warrant issuance, and a separate trusted root. This illustrates an
 in-process effect boundary, not protection from an application that deliberately
 bypasses the wrapped tool.
+
+## Verify against the local packed package
+
+From `tenuo-ts`, build `@tenuo/core`, then run the isolated check:
+
+```sh
+pnpm --filter @tenuo/core build
+node examples/express/scripts/verify-packed.mjs
+```
+
+The check packs the local `@tenuo/core`, installs its tarball into a temporary
+copy of this example (never a workspace link), and runs the TypeScript check,
+the test suite, and the demo there. Temporary dependencies are removed afterward.
+CI runs this script in the TypeScript SDK job after the Vercel AI SDK example.
